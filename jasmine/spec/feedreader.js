@@ -83,8 +83,8 @@ $(function() {
             loadFeed(0,done);
         });
         it('contain at least one entry',function() {
-            const feed = document.querySelector('.feed');
-            expect(feed.children.length > 0).toBe(true);
+            const entries = document.querySelector('.feed').querySelectorAll('.entry');
+            expect(entries.length).toBeGreaterThan(0);
         });
     });
     /* New test suite named "New Feed Selection" */
