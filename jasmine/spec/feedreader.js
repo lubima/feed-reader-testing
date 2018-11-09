@@ -89,22 +89,27 @@ $(function() {
     });
     /* New test suite named "New Feed Selection" */
     describe('New Feed Selection', function() {
-        const feed = document.querySelector('.feed');
-        const newFeed = [];
+        let feedOne,
+            feedTwo;
+        
         /* The test ensures that when a new feed is loaded
          * by the loadFeed function the content actually changes.
          */
         beforeEach(function(done) {
-            loadFeed(0);
-            Array.from(feed.children).forEach(function(entry){
-                newFeed.push(entry.innerText);
+            //Loads the first feed and store it in a variable
+            loadFeed(0, function() {
+                feedOne = $('.feed').html();
+                done();
             });
-            loadFeed(1,done);
+
+            //Loads the second feed and store it in a variable
+            loadFeed(1, function() {
+                feedTwo = $('.feed').html();
+                done();
+            });
         });
-        it('content changes',function() {
-            Array.from(feed.children).forEach(function(entry,index){
-                expect(entry.innerText === newFeed[index]).toBe(false);
-            });
+        it('content changes when new feed is loaded',function() {
+            expect(feedOne === feedTwo).toBe(false);
         });
     });
 }());
